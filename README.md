@@ -19,7 +19,7 @@ Output will show the Secrets Manager key for the configuration.
 
 ⚠️ It appears that rotating the master secret using RDS console, the server will become unavailable.
 
-💡 However, when a secret is rotated using Secrets Manager, there is no unavailability. Probably need to run more tests on this.
+💡 However, it looked like when a secret is rotated using Secrets Manager, there was no unavailability.
 
 <img src=".assets/rotate.png" width=500 />
 
