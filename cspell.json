@@ -4,7 +4,9 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
-        "github"
+        "github",
+        "godotenv",
+        "joho"
     ],
     "ignoreWords": [],
     "import": []

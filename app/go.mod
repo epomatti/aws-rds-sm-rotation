@@ -5,6 +5,7 @@ go 1.21.0
 require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.37
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.21.3
+	github.com/joho/godotenv v1.5.1
 )
 
 require (

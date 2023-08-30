@@ -1,9 +1,19 @@
 package main
 
-import "main/sm"
+import (
+	"main/sm"
+	"main/utils"
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 func main() {
-	var secretId string = "rds!db-10db40ec-cebd-4ade-9865-a4b99718a0a1"
+	err := godotenv.Load()
+	utils.Check(err)
+
+	secretId := os.Getenv("SECRET_ID")
+
 	value := sm.GetSecretValue(secretId)
 	println(value)
 }
