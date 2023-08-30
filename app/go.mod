@@ -6,6 +6,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.37
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.21.3
 	github.com/aws/aws-secretsmanager-caching-go v1.1.2
+	github.com/go-sql-driver/mysql v1.7.1
 	github.com/joho/godotenv v1.5.1
 )
 

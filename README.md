@@ -20,6 +20,7 @@ Output will show the Secrets Manager key for the configuration.
 Create the `app.env` file:
 
 ```sh
+RDS_MYSQL_ADDRESS="database-1.00000000000.us-east-2.rds.amazonaws.com"
 SECRET_ID="rds!db-00000000-0000-0000-0000-000000000000"
 ```
 

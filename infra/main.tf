@@ -21,6 +21,8 @@ locals {
   az2 = "${var.aws_region}b"
 }
 
+### KMS ###
+
 resource "random_string" "suffix" {
   length  = 3
   special = false
@@ -31,41 +33,9 @@ resource "aws_kms_key" "rds_master_password" {
   description             = "epomatti/rds/managed-master-password-key/${random_string.suffix.result}"
   deletion_window_in_days = 10
   enable_key_rotation     = true
-
-  # policy = jsonencode({
-  #   Version = "2012-10-17"
-  #   Statement = [
-  #     {
-  #       Sid    = "Enable IAM User Permissions"
-  #       Effect = "Allow"
-  #       Principal = {
-  #         "AWS" : "arn:aws:iam::${local.aws_account_id}:root"
-  #       }
-  #       Action   = "kms:*",
-  #       Resource = "*"
-  #     }
-  #   ]
-  # })
 }
 
-# resource "aws_kms_key_policy" "rds_master_password" {
-#   key_id = aws_kms_key.rds_master_password.id
-#   policy = jsonencode({
-#     Id = "example"
-#     Statement = [
-#       {
-#         Action = "kms:*"
-#         Effect = "Allow"
-#         Principal = {
-#           AWS = "*"
-#         }
-#         Resource = "*"
-#         Sid      = "Enable IAM User Permissions"
-#       },
-#     ]
-#     Version = "2012-10-17"
-#   })
-# }
+### RDS MySQL ###
 
 resource "aws_db_instance" "default" {
   identifier     = "database-1"
@@ -94,7 +64,8 @@ resource "aws_db_instance" "default" {
   skip_final_snapshot      = true
   delete_automated_backups = true
 
-  db_subnet_group_name = aws_db_subnet_group.default.name
+  db_subnet_group_name   = aws_db_subnet_group.default.name
+  vpc_security_group_ids = [aws_security_group.allow_mysql.id]
 }
 
 resource "aws_db_subnet_group" "default" {
@@ -170,4 +141,32 @@ resource "aws_route_table_association" "public1" {
 resource "aws_route_table_association" "public2" {
   subnet_id      = aws_subnet.public2.id
   route_table_id = aws_route_table.public.id
+}
+
+### Security Groups ###
+resource "aws_security_group" "allow_mysql" {
+  name   = "rds-${local.workload}"
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "sg-rds-${local.workload}"
+  }
+}
+
+resource "aws_security_group_rule" "ingress" {
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.allow_mysql.id
+}
+
+resource "aws_security_group_rule" "egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.allow_mysql.id
 }
