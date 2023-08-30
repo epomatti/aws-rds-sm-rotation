@@ -1,4 +1,4 @@
-# aws-rds-sm-rotation
+# AWS RDS Secrets Manager Rotation
 
 AWS Secrets Manager stored credential rotation with RDS.
 
