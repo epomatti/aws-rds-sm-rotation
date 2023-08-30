@@ -1,4 +1,4 @@
-package sm
+package secrets
 
 import (
 	"context"
@@ -9,17 +9,14 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-type RdsMasterCredentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-func GetSecretValue(secretId string) RdsMasterCredentials {
+func GetSecretValue() RdsMasterCredentials {
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	utils.Check(err)
 
 	client := secretsmanager.NewFromConfig(cfg)
+
+	secretId := utils.GetSecretId()
 
 	input := &secretsmanager.GetSecretValueInput{
 		SecretId: &secretId,
