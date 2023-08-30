@@ -41,5 +41,17 @@ go get
 go run .
 ```
 
+The application will loop new connections with the database.
+
+Rotate the secrets to test the behavior and resilience of your application.
+
+---
+
+After being done, clean up the resources:
+
+```sh
+terraform -chdir="infra" destroy -auto-approve
+```
+
 [1]: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_cache-go.html
 [2]: https://github.com/aws/aws-secretsmanager-caching-go/pull/40
