@@ -17,9 +17,13 @@ terraform -chdir="infra" apply -auto-approve
 
 Output will show the Secrets Manager key for the configuration.
 
-Optionally, it is possible to set imediate secret rotation after the database is created:
+⚠️ It appears that rotating the master secret using RDS console, the server will become unavailable.
 
 <img src=".assets/rotate.png" width=500 />
+
+💡 However, when a secret is rotated using Secrets Manager, there is no unavailability.
+
+Probably need to run more tests on this.
 
 Create the `app.env` file:
 
