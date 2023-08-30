@@ -77,8 +77,10 @@ resource "aws_db_instance" "default" {
   manage_master_user_password   = true
   master_user_secret_kms_key_id = aws_kms_key.rds_master_password.arn
 
+  ca_cert_identifier = "rds-ca-rsa2048-g1"
+
   publicly_accessible = true
-  instance_class      = "db.t4g.large"
+  instance_class      = "db.t4g.micro"
   allocated_storage   = "30"
   storage_type        = "gp3"
   storage_encrypted   = true
