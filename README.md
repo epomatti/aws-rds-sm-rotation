@@ -21,9 +21,7 @@ Output will show the Secrets Manager key for the configuration.
 
 <img src=".assets/rotate.png" width=500 />
 
-💡 However, when a secret is rotated using Secrets Manager, there is no unavailability.
-
-Probably need to run more tests on this.
+💡 However, when a secret is rotated using Secrets Manager, there is no unavailability. Probably need to run more tests on this.
 
 Create the `app.env` file:
 
