@@ -1,11 +1,11 @@
 output "secretsmanager_rds_secret_id" {
-  value = aws_db_instance.default.master_user_secret
+  value = module.rds.secretsmanager_rds_secret_id
 }
 
 output "rds_mysql_db_name" {
-  value = aws_db_instance.default.db_name
+  value = module.rds.mysql_address
 }
 
 output "rds_mysql_address" {
-  value = aws_db_instance.default.address
+  value = module.rds.mysql_address
 }
