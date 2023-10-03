@@ -2,6 +2,8 @@
 
 AWS Secrets Manager stored credential rotation with RDS.
 
+## Scenario 1 - RDS-managed Secret
+
 Create the `./infra/.auto.tfvars` file:
 
 ```terraform
